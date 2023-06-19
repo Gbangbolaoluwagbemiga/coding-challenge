@@ -11,12 +11,12 @@ export default function App() {
 function Counter() {
   const styles = {
     display: "inline",
-    margin: "0px 8px",
+    margin: "0px 5px",
     fontSize: "1.5rem",
-    cursor: "pointer"
+    cursor: "pointer",
   };
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState("");
   const [step, setStep] = useState(0);
   const date = new Date();
   date.setDate(date.getDate() + count);
@@ -28,43 +28,52 @@ function Counter() {
   function subCount() {
     setCount((s) => (step !== 0 ? s - step : s - 1));
   }
-  // step implementation
-  function subStep() {
-    setStep((s) => s - 1);
+  function handleClick() {
+    setCount("");
+    setStep(0);
   }
-  function addStep() {
-    setStep((s) => s + 1);
-  }
+
   return (
     <>
       <div style={{ margin: "1.5rem 0" }}>
-        <button style={styles} onClick={subStep}>
-          -
-        </button>
-        <p style={{ display: "inline" }}>Step: {step}</p>
-        <button style={styles} onClick={addStep}>
-          +
-        </button>
+        <input
+          type="range"
+          min={1}
+          max={20}
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
+
+        <p style={{ display: "inline" }}>{step}</p>
       </div>
 
       <div style={{ margin: "1.5rem 0" }}>
         <button style={styles} onClick={subCount}>
           -
         </button>
-        <p style={{ display: "inline" }}>count: {count}</p>
+        <input
+          type="number"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
         <button style={styles} onClick={addCount}>
           +
         </button>
       </div>
 
       <p>
-        {count === 0
+        {count === ""
           ? "Today is"
           : count > 0
           ? `${count} ${count === 1 ? "day" : "days"} from today is`
           : `${Math.abs(count)} days ago was`}{" "}
         {date.toDateString()}
       </p>
+      {count !== "" || step !== 0 ? (
+        <button onClick={handleClick}>Reset</button>
+      ) : (
+        ""
+      )}
     </>
   );
 }
