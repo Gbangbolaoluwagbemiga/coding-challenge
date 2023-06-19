@@ -23,7 +23,7 @@ function Counter() {
 
   // count implementation
   function addCount() {
-    setCount((s) => (step !== 0 ? s + step : s + 1));
+    setCount((s) => (step !== 0 ? +s + step : s + 1));
   }
   function subCount() {
     setCount((s) => (step !== 0 ? s - step : s - 1));
@@ -40,7 +40,7 @@ function Counter() {
           type="range"
           min={1}
           max={20}
-          value={step}
+          value={(step)}
           onChange={(e) => setStep(Number(e.target.value))}
         />
 
@@ -62,7 +62,7 @@ function Counter() {
       </div>
 
       <p>
-        {count === ""
+        {count === "" || count === 0
           ? "Today is"
           : count > 0
           ? `${count} ${count === 1 ? "day" : "days"} from today is`
