@@ -30,7 +30,7 @@ function Counter() {
   }
   function handleClick() {
     setCount("");
-    setStep(0);
+    setStep(1);
   }
 
   return (
